@@ -1,13 +1,10 @@
 package com.reactlibrary.qnrtcplayer;
 
-import android.graphics.Color;
-import android.util.ArrayMap;
 import android.util.Log;
-import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -26,11 +23,8 @@ import com.qiniu.droid.rtplayer.QNRTPlayer;
 import com.qiniu.droid.rtplayer.QNRTPlayerFactory;
 import com.qiniu.droid.rtplayer.QNRTPlayerSetting;
 import com.qiniu.droid.rtplayer.QNRTPlayerUrl;
-import com.qiniu.droid.rtplayer.QNRenderMode;
 import com.qiniu.droid.rtplayer.render.QNSurfaceView;
 import com.reactlibrary.qnrtcplayer.constants.QNRTCPlayerEventConstants;
-
-import org.webrtc.RendererCommon;
 
 import java.util.Map;
 
@@ -59,18 +53,24 @@ public class QnrtPlayerViewManager extends SimpleViewManager<QNSurfaceView> impl
     return qnSurfaceView;
   }
 
+  @Override()
+  public void onDropViewInstance(QNSurfaceView qnSurfaceView){
+    Log.i("onDropViewInstance","onDropViewInstance");
+    mRTPlayer.releasePlayer();
+  }
+
   @Override
   public void onHostResume() {
-//    if (!mRTUrl.getURL().isEmpty() && !mRTPlayer.isPlaying()) {
-//      mRTPlayer.playUrl(mRTUrl);
-//    }
+    if (!mRTUrl.getURL().isEmpty() && !mRTPlayer.isPlaying()) {
+      mRTPlayer.playUrl(mRTUrl);
+    }
   }
 
   @Override
   public void onHostPause() {
-//    if (mRTPlayer.isPlaying()) {
+    if (mRTPlayer.isPlaying()) {
 //      mRTPlayer.stopPlay();
-//    }
+    }
   }
 
   @Override
@@ -97,8 +97,8 @@ public class QnrtPlayerViewManager extends SimpleViewManager<QNSurfaceView> impl
       public void onPlayerInfo(int i, Object o) {
         Log.d(REACT_CLASS, "onPlayerInfo:" + i);
         WritableMap map = Arguments.createMap();
-        map.putInt("type", i);
-        mEventEmitter.receiveEvent(qnSurfaceView.getId(), QNRTCPlayerEventConstants.ON_PLAYER_INFO, Arguments.createMap());
+        map.putInt("code", i);
+        mEventEmitter.receiveEvent(qnSurfaceView.getId(), QNRTCPlayerEventConstants.ON_PLAYER_INFO, map);
       }
 
       @Override
@@ -107,7 +107,7 @@ public class QnrtPlayerViewManager extends SimpleViewManager<QNSurfaceView> impl
         WritableMap map = Arguments.createMap();
         map.putString("message", qnError.mDescription);
         map.putInt("code", qnError.mCode);
-        mEventEmitter.receiveEvent(qnSurfaceView.getId(), QNRTCPlayerEventConstants.ON_PLAYER_ERROR, Arguments.createMap());
+        mEventEmitter.receiveEvent(qnSurfaceView.getId(), QNRTCPlayerEventConstants.ON_PLAYER_ERROR, map);
       }
     });
     mRTUrl = new QNRTPlayerUrl();
