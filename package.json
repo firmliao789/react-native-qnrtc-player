@@ -2,7 +2,7 @@
   "name": "react-native-qnrt-player",
   "title": "React Native Qnrt Player",
   "version": "1.0.0",
-  "description": "TODO",
+  "description": "react-native qiniu webrtc 低延迟播放器",
   "main": "index.js",
   "files": [
     "README.md",
@@ -16,15 +16,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/github_account/react-native-qnrt-player.git",
-    "baseUrl": "https://github.com/github_account/react-native-qnrt-player"
+    "url": "git+https://github.com/firmliao789/react-native-qnrtc-player.git",
+    "baseUrl": "https://github.com/firmliao789/react-native-qnrtc-player.git"
   },
   "keywords": [
     "react-native"
   ],
   "author": {
     "name": "liaoyi",
-    "email": "firmliao789@email.com"
+    "email": "firmliao789@126.com"
   },
   "license": "MIT",
   "licenseFilename": "LICENSE",
