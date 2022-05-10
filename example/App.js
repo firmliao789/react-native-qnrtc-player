@@ -25,7 +25,7 @@ export default class App extends Component {
     return (
       <View style={styles.container}>
         <QNRTPlayer style={{width: 300, height: 300}}
-                    source={{uri: "http://pili-hls.qnsdk.com/sdk-live/timestamp.m3u8", mHttpPost: true}}
+                    source={{uri: "http://pili-live-hls.kakayuedu.com/twmh-pili/doll_machine_1.m3u8", mHttpPost: true}}
                     onPlayerStateChanged={(e) => {
                       e.persist()
                       console.log("onPlayerStateChangede", e);
