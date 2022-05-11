@@ -18,7 +18,9 @@ RCT_EXPORT_MODULE(QNRTPlayer)
     self.player = [[QNRTPlayer alloc] init];
     self.player.delegate = self;
     self.playView=[[QNRTPlayerView alloc] init];
+    self.player.statisticInterval=2;
     self.player.playView=self.playView;
+    self.playView.player=self.player;
     return  self.playView;
 }
 
@@ -47,6 +49,10 @@ RCT_EXPORT_VIEW_PROPERTY(onPlayerError, RCTDirectEventBlock);
             @"state":@(playState)
         });
     });
+}
+
+- (void)RTPlayer:(QNRTPlayer *)player didGetStatistic:(NSDictionary *)statistic{
+    NSLog(@"didGetStatistic%@",statistic);
 }
 
 @end

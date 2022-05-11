@@ -10,6 +10,8 @@
 
 @interface QNRTPlayerView: QNRTVideoView
 
+@property (nonatomic, strong) QNRTPlayer *player;
+
 @property (nonatomic, copy) RCTDirectEventBlock onPlayerStateChanged;
 
 @property (nonatomic, copy) RCTDirectEventBlock onPlayerError;
